@@ -3,11 +3,12 @@ import { SendMessageService } from "../../shared/broker/application/services/sen
 import { AmqpLibPort } from "../../shared/broker/infraestructure/ports/AmqpLib";
 import { CreatePaymentService } from "../application/services/createPayment.service";
 
-const amqplLib = new AmqpLibPort("");
+const amqplLib = new AmqpLibPort("amqp://54.84.89.185");
 
 const sendMessageService = new SendMessageService(amqplLib);
-export const consumeChannelService = new ConsumeChannelService(amqplLib);
+const consumeChannelService = new ConsumeChannelService(amqplLib);
 
 export const createPaymentService = new CreatePaymentService(
-  sendMessageService
+  sendMessageService,
+  consumeChannelService
 );

@@ -1,9 +1,8 @@
 import amqp from "amqplib/callback_api";
-import { QueueName, QueueRequest } from "../../domain/entities";
+import { QueueName, QueueRequest, QueueResponse } from "../../domain/entities";
 import { BrokerRepository } from "../../domain/repository/BrokerRepository";
 import { Connection } from "amqplib/callback_api";
 import { Channel } from "amqplib/callback_api";
-import { QueueResponse } from "../../domain/entities/QueueResponse";
 
 export class AmqpLibPort implements BrokerRepository {
   constructor(private readonly url: string) {}
@@ -46,16 +45,6 @@ export class AmqpLibPort implements BrokerRepository {
     }
   }
 
-  async deleteMessage(queueName: QueueName, data: any): Promise<void> {
-    try {
-      const channel = await this.createChannel();
-      channel.assertQueue(queueName);
-      channel.ack(data);
-    } catch (err: any) {
-      throw new Error(err);
-    }
-  }
-
   async consumeChannel(queueName: QueueName): Promise<QueueResponse> {
     try {
       const channel = await this.createChannel();
@@ -63,10 +52,10 @@ export class AmqpLibPort implements BrokerRepository {
       return new Promise<QueueResponse>((resolve, reject) => {
         channel.consume(queueName, async (data: amqp.Message | null) => {
           console.log(`cola : ${queueName} con datos: `);
-          console.log(data?.content);
           if (data !== null) {
-            const content = data.content;
+            const content = data?.content;
             const parsedContent = JSON.parse(content.toString());
+            await channel.ack(data);
             resolve(parsedContent);
           }
           reject("Invalid data: " + data);

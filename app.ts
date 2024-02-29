@@ -1,7 +1,3 @@
-import {
-  consumeChannelService,
-  createPaymentService,
-} from "./src/payment/infraestructure/dependencies";
-import { QueueName } from "./src/shared/broker/domain/entities";
+import { createPaymentService } from "./src/payment/infraestructure/dependencies";
 
-consumeChannelService.run(QueueName.INITIAL, createPaymentService.run);
+createPaymentService.run();
