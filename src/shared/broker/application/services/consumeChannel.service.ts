@@ -6,13 +6,9 @@ export class ConsumeChannelService {
   async run(queueName: QueueName): Promise<any> {
     try {
       const msg = await this.brokerRepository.consumeChannel(queueName);
-      const content = msg?.content;
-      const parsedContent = JSON.parse(content.toString());
-      const objectToSent = {
-        msg,
-        parsedContent,
-      };
-      return objectToSent;
+      console.log("data:")
+      console.log(msg)
+      return msg;
     } catch (err: any) {
       throw new Error(err);
     }

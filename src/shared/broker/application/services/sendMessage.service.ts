@@ -9,6 +9,7 @@ export class SendMessageService {
         queueName: queueName,
         content: data,
       };
+      console.log(reqQueue)
       await this.brokerRepository.sendMessageToChannel(reqQueue);
     } catch (err: any) {
       throw new Error(err);
