@@ -18,12 +18,14 @@
     "chokidar": "^3.6.0",
     "concat-map": "^0.0.1",
     "core-util-is": "^1.0.3",
+    "cors": "^2.8.5",
     "create-require": "^1.1.1",
     "debug": "^4.3.4",
     "diff": "^4.0.2",
     "dynamic-dedupe": "^0.3.0",
     "engine.io-client": "^6.5.3",
     "engine.io-parser": "^5.2.2",
+    "express": "^4.18.3",
     "fill-range": "^7.0.1",
     "fs.realpath": "^1.0.0",
     "function-bind": "^1.1.2",
@@ -78,12 +80,16 @@
     "xtend": "^4.0.2",
     "yn": "^3.1.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "ts-node-dev ./app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/amqplib": "^0.10.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21"
+  }
 }
